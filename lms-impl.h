@@ -88,15 +88,6 @@ Type lmsNewton( const Type &xk, const Type &dk, Vector<Type> &wn,
  * 它通过使用输入功率进行归一化来解决此问题。 为了稳定起见，参数“rho”应等于
  * （0,2），而“ gamma”为小数，以防止<Xn，Xn> == 0。
  *******************************************************************/
-
-/**
- * @func lmsNormalize
- * @param xk
- * @param dk
- * @param wn
- * @param rho
- * @param gamma
- */
 template <typename Type>
 Type lmsNormalize( const Type &xk, const Type &dk, Vector<Type> &wn,
                    const Type &rho, const Type &gamma )
