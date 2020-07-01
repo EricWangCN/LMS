@@ -1,39 +1,23 @@
-/*
-* Copyright (c) 2008-2011 Zhang Ming (M. Zhang), zmjerry@163.com
-*
-* This program is free software; you can redistribute it and/or modify it
-* under the terms of the GNU General Public License as published by the
-        * Free Software Foundation, either version 2 or any later version.
-*
-* Redistribution and use in source and binary forms, with or without
-        * modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright
-        *    notice, this list of conditions and the following disclaimer in the
-*    documentation and/or other materials provided with the distribution.
-*
-* This program is distributed in the hope that it will be useful, but WITHOUT
-        * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
-* more details. A copy of the GNU General Public License is available at:
-* http://www.fsf.org/licensing/licenses
-*/
+/*******************************************************************
+ *          基于西安交通大学 M.Zhang 的vector类
+ *          北京交通大学 王子龙 wangzilong@bjtu.edu.cn
+ *          用于小学期综合训练大作业
+ *******************************************************************/
 
 
-/*****************************************************************************
- *                               vector-impl.h
+/*******************************************************************
+ *                        vector-impl.h
  *
- * Implementation for Vector class.
+ * vector类的实现
  *
- * Zhang Ming, 2010-01 (revised 2010-12), Xi'an Jiaotong University.
- *****************************************************************************/
+ * 代码来源：Zhang Ming, zmjerry@163.com, 编写与2010年10月
+ * 代码修改：王子龙, wangzilong@bjtu.edu.cn, CS1804, SCIT, BJTU
+ * 代码修改日期：2020年06月29日
+ *******************************************************************/
 
 
 /**
- * initialize
+ * 初始化
  */
 template <typename Type>
 void Vector<Type>::init( int length )
@@ -48,7 +32,7 @@ void Vector<Type>::init( int length )
 
 
 /**
- * copy vector from normal array
+ * 从普通数组赋值给vector
  */
 template <typename Type>
 inline void Vector<Type>::copyFromArray( const Type *v )
@@ -59,7 +43,7 @@ inline void Vector<Type>::copyFromArray( const Type *v )
 
 
 /**
- * set vector by a scalar
+ * 通过标量设置向量
  */
 template <typename Type>
 inline void Vector<Type>::setByScalar( const Type &x )
@@ -70,7 +54,7 @@ inline void Vector<Type>::setByScalar( const Type &x )
 
 
 /**
- * destroy the vector
+ * 删除向量
  */
 template <typename Type>
 void Vector<Type>::destroy()
@@ -86,7 +70,7 @@ void Vector<Type>::destroy()
 
 
 /**
- * constructors and destructor
+ * 构造函数和析构函数
  */
 template <typename Type>
 Vector<Type>::Vector()
@@ -126,7 +110,7 @@ Vector<Type>::~Vector()
 
 
 /**
- * overload evaluate operator= from vector to vector
+ * 重载赋值号（vector to vector）
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::operator=( const Vector<Type> &v )
@@ -148,7 +132,7 @@ Vector<Type>& Vector<Type>::operator=( const Vector<Type> &v )
 
 
 /**
- * overload evaluate operator= from scalar to vector
+ * 重载赋值号（scalar to vector）
  */
 template <typename Type>
 inline Vector<Type>& Vector<Type>::operator=( const Type &x )
@@ -160,7 +144,7 @@ inline Vector<Type>& Vector<Type>::operator=( const Type &x )
 
 
 /**
- * overload operator [] for 0-offset access
+ * 用于0偏移量访问的重载运算符[]
  */
 template <typename Type>
 inline Type& Vector<Type>::operator[]( int i )
@@ -186,7 +170,7 @@ inline const Type& Vector<Type>::operator[]( int i ) const
 
 
 /**
- * overload operator () for 1-offset access
+ * 用于1偏移量访问的重载运算符()
  */
 template <typename Type>
 inline Type& Vector<Type>::operator()( int i )
@@ -212,7 +196,7 @@ inline const Type& Vector<Type>::operator()( int i ) const
 
 
 /**
- * iterators
+ * 迭代器
  */
 template <typename Type>
 inline typename Vector<Type>::iterator Vector<Type>::begin()
@@ -240,7 +224,7 @@ inline typename Vector<Type>::const_iterator Vector<Type>::end() const
 
 
 /**
- * type conversion functions
+ * 类型转换
  */
 template <typename Type>
 inline Vector<Type>::operator Type*()
@@ -256,7 +240,7 @@ inline Vector<Type>::operator const Type*() const
 
 
 /**
- * get the vector's total size
+ * 返回vector的大小
  */
 template <typename Type>
 inline int Vector<Type>::size() const
@@ -266,7 +250,7 @@ inline int Vector<Type>::size() const
 
 
 /**
- * get the vector's dimension
+ * 获取vector维度
  */
 template <typename Type>
 inline int Vector<Type>::dim() const
@@ -276,7 +260,7 @@ inline int Vector<Type>::dim() const
 
 
 /**
- * reallocate vector's size
+ * 重新为向量分配大小
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::resize( int length )
@@ -292,7 +276,7 @@ Vector<Type>& Vector<Type>::resize( int length )
 
 
 /**
- * compound assignment operators +=
+ * 赋值运算符+=的重载
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::operator+=( const Type &x )
@@ -319,7 +303,7 @@ Vector<Type>& Vector<Type>::operator+=( const Vector<Type> &rhs )
 
 
 /**
- * compound assignment operators -=
+ * 赋值运算符-=的重载
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::operator-=( const Type &x )
@@ -346,7 +330,7 @@ Vector<Type>& Vector<Type>::operator-=( const Vector<Type> &rhs )
 
 
 /**
- * compound assignment operators *=
+ * 赋值运算符*=的重载
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::operator*=( const Type &x )
@@ -373,7 +357,7 @@ Vector<Type>& Vector<Type>::operator*=( const Vector<Type> &rhs )
 
 
 /**
- * compound assignment operators /=
+ * 赋值运算符/=的重载
  */
 template <typename Type>
 Vector<Type>& Vector<Type>::operator/=( const Type &x )
@@ -400,7 +384,7 @@ Vector<Type>& Vector<Type>::operator/=( const Vector<Type> &rhs )
 
 
 /**
- * Overload the output stream function.
+ * 重载输出流运算符<<
  */
 template <typename Type>
 ostream& operator<<( ostream &out, const Vector<Type> &v )
@@ -416,7 +400,7 @@ ostream& operator<<( ostream &out, const Vector<Type> &v )
 
 
 /**
- * Overload the input stream function.
+ * 重载输入流运算符>>
  */
 template <typename Type>
 istream& operator>>( istream &in, Vector<Type> &v )
@@ -435,7 +419,7 @@ istream& operator>>( istream &in, Vector<Type> &v )
 
 
 /**
- * get negative vector
+ * 得到向量的负值
  */
 template <typename Type>
 Vector<Type> operator-( const Vector<Type> &v )
@@ -452,7 +436,7 @@ Vector<Type> operator-( const Vector<Type> &v )
 
 
 /**
- * vector-scalar addition.
+ * 向量-标量加法
  */
 template <typename Type>
 inline Vector<Type> operator+( const Vector<Type> &v, const Type &x )
@@ -469,7 +453,7 @@ inline Vector<Type> operator+( const Type &x, const Vector<Type> &v )
 
 
 /**
- * vector-scalar substraction.
+ * 向量-标量减法
  */
 template <typename Type>
 inline Vector<Type> operator-( const Vector<Type> &v, const Type &x )
@@ -487,7 +471,7 @@ inline Vector<Type> operator-( const Type &x, const Vector<Type> &v )
 
 
 /**
- * vector-scalar multiplication.
+ * 向量-标量乘法
  */
 template <typename Type>
 inline Vector<Type> operator*( const Vector<Type> &v, const Type &x )
@@ -504,7 +488,7 @@ inline Vector<Type> operator*( const Type &x, const Vector<Type> &v )
 
 
 /**
- * vector-scalar division.
+ * 向量-标量除法
  */
 template <typename Type>
 inline Vector<Type> operator/( const Vector<Type> &v, const Type &x )
@@ -527,7 +511,7 @@ inline Vector<Type> operator/( const Type &x, const Vector<Type> &v )
 
 
 /**
- * vector-vector addition.
+ * 向量-向量加法
  */
 template <typename Type>
 inline Vector<Type> operator+( const Vector<Type> &v1, const Vector<Type> &v2 )
@@ -538,7 +522,7 @@ inline Vector<Type> operator+( const Vector<Type> &v1, const Vector<Type> &v2 )
 
 
 /**
- * vector-vector substraction.
+ * 向量-向量减法
  */
 template <typename Type>
 inline Vector<Type> operator-( const Vector<Type> &v1, const Vector<Type> &v2 )
@@ -549,7 +533,7 @@ inline Vector<Type> operator-( const Vector<Type> &v1, const Vector<Type> &v2 )
 
 
 /**
- * vector-vector multiplication.
+ * 向量-向量乘法
  */
 template <typename Type>
 inline Vector<Type> operator*( const Vector<Type> &v1, const Vector<Type> &v2 )
@@ -560,7 +544,7 @@ inline Vector<Type> operator*( const Vector<Type> &v1, const Vector<Type> &v2 )
 
 
 /**
- * vector-vector division.
+ * 向量-向量除法
  */
 template <typename Type>
 inline Vector<Type> operator/( const Vector<Type> &v1, const Vector<Type> &v2 )
@@ -571,7 +555,7 @@ inline Vector<Type> operator/( const Vector<Type> &v1, const Vector<Type> &v2 )
 
 
 /**
- * Inner product for vectors.
+ * 向量內积
  */
 template <typename Type>
 Type dotProd( const Vector<Type> &v1, const Vector<Type> &v2 )
@@ -590,7 +574,7 @@ Type dotProd( const Vector<Type> &v1, const Vector<Type> &v2 )
 
 
 /**
- * Inner product for vectors.
+ * 多个向量內积
  */
 template <typename Type>
 complex<Type> dotProd( const Vector<complex<Type> > &v1,
@@ -610,7 +594,7 @@ complex<Type> dotProd( const Vector<complex<Type> > &v1,
 
 
 /**
- * Vector's sum.
+ * 向量元素和
  */
 template <typename Type>
 Type sum( const Vector<Type> &v )
@@ -626,7 +610,7 @@ Type sum( const Vector<Type> &v )
 
 
 /**
- * Minimum value of vector.
+ * 向量元素最小值
  */
 template <typename Type>
 Type min( const Vector<Type> &v )
@@ -641,7 +625,7 @@ Type min( const Vector<Type> &v )
 
 
 /**
- * Maximum value of vector.
+ * 向量元素最大值
  */
 template <typename Type>
 Type max( const Vector<Type> &v )
@@ -656,7 +640,7 @@ Type max( const Vector<Type> &v )
 
 
 /**
- * Vector's norm in Euclidean space.
+ * 欧几里得空间中的向量范数
  */
 template <typename Type>
 Type norm( const Vector<Type> &v )
@@ -675,7 +659,7 @@ Type norm( const Vector<Type> &v )
 
 
 /**
- * Vector's norm in Euclidean space.
+ * 欧几里得空间中的向量范数
  */
 template <typename Type>
 Type norm( const Vector<complex<Type> > &v )
@@ -691,7 +675,7 @@ Type norm( const Vector<complex<Type> > &v )
 
 
 /**
- * return vector's reversion
+ * 返回向量的逆
  */
 template <typename Type>
 void swap( Vector<Type> &lhs, Vector<Type> &rhs )
@@ -705,8 +689,7 @@ void swap( Vector<Type> &lhs, Vector<Type> &rhs )
 
 
 /**
- * Generates a vector of n points linearly spaced between and
- * including a and b.
+ * 生成在a和b之间（包括a和b）线性间隔的n个点的向量。
  */
 template <typename Type>
 Vector<Type> linspace( Type a, Type b, int n )
@@ -729,7 +712,7 @@ Vector<Type> linspace( Type a, Type b, int n )
 
 
 /**
- * Get magnitude of a complex vector.
+ * 获取复数向量的绝对值
  */
 template <typename Type>
 Vector<Type> abs( const Vector< complex<Type> > &v )
@@ -746,7 +729,7 @@ Vector<Type> abs( const Vector< complex<Type> > &v )
 
 
 /**
- * Get angle of a complex vector.
+ * 获取复数向量的arg
  */
 template <typename Type>
 Vector<Type> arg( const Vector< complex<Type> > &v )
@@ -763,7 +746,7 @@ Vector<Type> arg( const Vector< complex<Type> > &v )
 
 
 /**
- * Get real part of a complex vector.
+ * 获取复数向量的实部
  */
 template <typename Type>
 Vector<Type> real( const Vector< complex<Type> > &v )
@@ -780,7 +763,7 @@ Vector<Type> real( const Vector< complex<Type> > &v )
 
 
 /**
- * Get imaginary part of a complex vector.
+ * 获取复数向量虚部
  */
 template <typename Type>
 Vector<Type> imag( const Vector< complex<Type> > &v )
@@ -797,7 +780,7 @@ Vector<Type> imag( const Vector< complex<Type> > &v )
 
 
 /**
- * Convert real vector to complex vector.
+ * 将实向量转为复数向量
  */
 template <typename Type>
 Vector<complex<Type> > complexVector( const Vector<Type> &rv )

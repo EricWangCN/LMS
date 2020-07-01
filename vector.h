@@ -1,54 +1,32 @@
-/*
- * Copyright (c) 2008-2011 Zhang Ming (M. Zhang), zmjerry@163.com
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 2 or any later version.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details. A copy of the GNU General Public License is available at:
- * http://www.fsf.org/licensing/licenses
- */
+/*******************************************************************
+ *          基于西安交通大学 M.Zhang 的vector类
+ *          北京交通大学 王子龙 wangzilong@bjtu.edu.cn
+ *          用于小学期综合训练大作业
+ *******************************************************************/
 
-
-/*****************************************************************************
- *                                 vector.h
+/*******************************************************************
+ *                            vector.h
+ * vector类被设计用来进行基础的线性代数运算，例如：
+ *    v + k    k + v    v += k    v1 + v2    v1 += v2
+ *    v - k    k - v    v -= k    v1 - v2    v1 -= v2
+ *    v * k    k * v    v *= k    v1 * v2    v1 *= v2
+ *    v / k    k / v    v /= k    v1 / v2    v1 /= v2
+ *    mum,     min,     max       swap       reverse
+ *    norm     dotProd
+ * 这些运算和函数可以被应用在实向量和虚向量上。
  *
- * Class template of vector which is designed for basic linear algebra
- * operations such as:
- *              v + k    k + v    v += k    v1 + v2    v1 += v2
- *              v - k    k - v    v -= k    v1 - v2    v1 -= v2
- *              v * k    k * v    v *= k    v1 * v2    v1 *= v2
- *              v / k    k / v    v /= k    v1 / v2    v1 /= v2
- *              mum,     min,     max       swap       reverse
- *              norm     dotProd
- * These operators and functions can be applied to both real vector and
- * complex vector.
+ * 此vector类同时还提供了基础的数学函数，例如：
+ *    cos    sin    tan    acos   asin   atan
+ *    abs    exp    log    log10  sqrt   pow
+ * 这应该包含 "matrixmath.h" 文件。
  *
- * The class also provides the basic math functions such as:
- *              cos    sin    tan    acos   asin   atan
- *              abs    exp    log    log10  sqrt   pow
- * This should include "matrixmath.h" file.
+ * 当调试时，在"#include vector.h"上方一行写上： #define BOUNDS_CHECK。
+ * 当完成调试，将"#define BOUNDS_CHECK"注释掉以获得更好的性能。
  *
- * When debugging, use #define BOUNDS_CHECK above your "#include vector.h"
- * line. When done debugging, comment out #define BOUNDS_CHECK for better
- * performance.
- *
- * Zhang Ming, 2010-01 (revised 2010-12), Xi'an Jiaotong University.
- *****************************************************************************/
-
+ * 代码来源：Zhang Ming, zmjerry@163.com, 编写与2010年01月
+ * 代码修改：王子龙, wangzilong@bjtu.edu.cn, CS1804, SCIT, BJTU
+ * 代码修改日期：2020年07月01日
+ *******************************************************************/
 
 #ifndef VECTOR_H
 #define VECTOR_H
@@ -74,39 +52,39 @@ namespace splab
         typedef         Type*   iterator;
         typedef const   Type*   const_iterator;
 
-        // constructors and destructor
+        // 构造函数和析构函数
         Vector();
         Vector( const Vector<Type> &v );
         Vector( int length, const Type &x = Type(0) );
         Vector( int length, const Type *array );
         ~Vector();
 
-        // assignments
+        // 赋值号重载
         Vector<Type>& operator=( const Vector<Type> &v );
         Vector<Type>& operator=( const Type &x );
 
-        // accessors
+        // 下标符号
         Type& operator[]( int i );
         const Type& operator[]( int i ) const;
         Type& operator()( int i );
         const Type& operator()( int i ) const;
 
-        // iterators
+        // 迭代器
         iterator begin();
         const_iterator begin() const;
         iterator end();
         const_iterator end() const;
 
-        // type conversion
+        // 泛型转换
         operator Type*();
         operator const Type*() const;
 
-        // others
+        // 其他
         int size() const;
         int dim() const;
         Vector<Type>& resize( int length );
 
-        // computed assignment
+        // 赋值运算符重载
         Vector<Type>& operator+=( const Type& );
         Vector<Type>& operator-=( const Type& );
         Vector<Type>& operator*=( const Type& );
@@ -118,13 +96,13 @@ namespace splab
 
     private:
 
-        // data pointer for 0-offset indexing
+        // 用于0偏移索引的数据指针
         Type *pv0;
 
-        // data pointer for 1-offset indexing
+        // 用于1偏移索引的数据指针
         Type *pv1;
 
-        // the row number of vector
+        // 向量的列
         int	 nRow;
 
         void init( int length );
@@ -136,13 +114,13 @@ namespace splab
     // class Vector
 
 
-    // input and output
+    // 输入输出
     template<typename Type>
     ostream& operator<<( ostream&, const Vector<Type>& );
     template<typename Type>
     istream& operator>>( istream&, Vector<Type>& );
 
-    // arithmetic operators
+    // 算术运算符重载
     template<typename Type>
     Vector<Type> operator-( const Vector<Type>& );
     template<typename Type>
@@ -170,13 +148,13 @@ namespace splab
     template<typename Type>
     Vector<Type> operator/( const Vector<Type>&, const Vector<Type>& );
 
-    // dot product
+    // 点积
     template<typename Type>
     Type dotProd( const Vector<Type>&, const Vector<Type>& );
     template<typename Type> complex<Type>
     dotProd( const Vector<complex<Type> >&, const Vector<complex<Type> >& );
 
-    // utilities
+    // 数学运算
     template<typename Type> Type sum( const Vector<Type>& );
     template<typename Type> Type min( const Vector<Type>& );
     template<typename Type> Type max( const Vector<Type>& );
