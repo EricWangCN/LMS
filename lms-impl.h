@@ -89,8 +89,7 @@ Type lmsNewton( const Type &xk, const Type &dk, Vector<Type> &wn,
  * （0,2），而“ gamma”为小数，以防止<Xn，Xn> == 0。
  *******************************************************************/
 template <typename Type>
-Type lmsNormalize( const Type &xk, const Type &dk, Vector<Type> &wn,
-                   const Type &rho, const Type &gamma )
+Type lmsNormalize( const Type &xk, const Type &dk, Vector<Type> &wn, const Type &rho, const Type &gamma )
 {
     assert( 0 < rho );
     assert( rho < 2 );
@@ -112,3 +111,16 @@ Type lmsNormalize( const Type &xk, const Type &dk, Vector<Type> &wn,
     return yk;
 }
 
+
+/*******************************************************************
+ * LMS牛顿法解决了LMS算法收敛速度很慢的缺点，但是其步长因子mu的选择仍然难以把握。
+ * 根据F,F,Jretschmer, Jr, B.L.Lewis, An improved algorithm for
+ * adaptive processing中提出的修正LMS算法的思想（即用当前时刻的梯度估计代替前
+ * 一时刻的梯度估计）以及矩阵求逆定理导出了一种修正LMS算法。
+ *******************************************************************/
+
+template <typename Type>
+Type lmsNewtonFix(const Type &xk, const Type &dk, Vector<Type> &wn, const Type &mu, const Type &alpha, const Type &delta) {
+    int filterLen = wn.size();
+
+}

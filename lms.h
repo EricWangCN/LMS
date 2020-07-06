@@ -40,6 +40,9 @@ namespace splab
     Type lmsNormalize( const Type&, const Type&, Vector<Type>&,
                        const Type&, const Type& );
 
+    template<typename Type>
+    Type lmsNewtonFix( const Type&, const Type&, Vector<Type>&,
+                    const Type&, const Type&, const Type& );
 
 #include "lms-impl.h"
 
