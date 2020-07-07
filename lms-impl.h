@@ -21,6 +21,19 @@
  * wn是权值向量，"mu"是迭代阶数，为了"mu"的稳定，它应该属于(0,Rr[Rxx])。
  *******************************************************************/
 
+template<typename Type>
+Type sDotProd(Vector<Type>&v, Matrix<Type>&m) {
+    Type ans = 0;
+    int n = v.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            ans += v[j] * m[j][i];
+        }
+    }
+
+    return ans;
+}
+
 template <typename Type>
 Type lms( const Type &xk, const Type &dk, Vector<Type> &wn, const Type &mu )
 {
@@ -78,6 +91,42 @@ Type lmsNewton( const Type &xk, const Type &dk, Vector<Type> &wn,
 
     // 更新权重向量
     wn += 2*mu * (dk-yk) * (invR*xn);
+    return yk;
+}
+
+/*******************************************************************
+ * LMS牛顿法解决了LMS算法收敛速度很慢的缺点，但是其步长因子mu的选择仍然难以把握。
+ * 根据F,F,Jretschmer, Jr, B.L.Lewis, An improved algorithm for
+ * adaptive processing中提出的修正LMS算法的思想（即用当前时刻的梯度估计代替前
+ * 一时刻的梯度估计）以及矩阵求逆定理导出了一种修正LMS算法。
+ *
+ * 编写者：王子龙 北京交通大学 wangzilong@bjtu.edu.cn
+ * 编写时间：2020年07月07日
+ *******************************************************************/
+
+template <typename Type>
+Type lmsNewtonFix(const Type &xk, const Type &dk, Vector<Type> &wn, const Type &mu, const Type &alpha, const Type &delta) {
+    int filterLen = wn.size();
+
+    static Vector<Type> xn(filterLen);
+    static Vector<Type> I(filterLen);
+    for (int i = 0; i < filterLen; ++i) {
+        I[i] = 1;
+    }
+
+    // 初始化相关矩阵的逆
+    static Matrix<Type> invR = eye( filterLen, Type(1.0*delta) );
+
+    // 更新输入信号
+    for( int i=filterLen; i>1; --i )
+        xn(i) = xn(i-1);
+    xn(1) = xk;
+
+    // 更新相关矩阵的逆
+    invR = (filterLen + 1.0) / (filterLen * 1.0)  * invR - (invR * dotProd(xn ,xn) * invR)/(xk + sDotProd(xn, invR) * xk);
+    Type yk = dotProd(wn,xn);
+    // 更新权向量
+    wn += (mu * invR * xn * (dk - dotProd(wn, xn)))/(I + mu * invR * sDotProd(xn, invR) * xn);
 
     return yk;
 }
@@ -112,15 +161,3 @@ Type lmsNormalize( const Type &xk, const Type &dk, Vector<Type> &wn, const Type 
 }
 
 
-/*******************************************************************
- * LMS牛顿法解决了LMS算法收敛速度很慢的缺点，但是其步长因子mu的选择仍然难以把握。
- * 根据F,F,Jretschmer, Jr, B.L.Lewis, An improved algorithm for
- * adaptive processing中提出的修正LMS算法的思想（即用当前时刻的梯度估计代替前
- * 一时刻的梯度估计）以及矩阵求逆定理导出了一种修正LMS算法。
- *******************************************************************/
-
-template <typename Type>
-Type lmsNewtonFix(const Type &xk, const Type &dk, Vector<Type> &wn, const Type &mu, const Type &alpha, const Type &delta) {
-    int filterLen = wn.size();
-
-}

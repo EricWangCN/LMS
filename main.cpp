@@ -21,7 +21,7 @@ using namespace splab;
 typedef double  Type;
 const   int     N = 50;
 const   int     order = 1;
-const   int     dispNumber = 10;
+const   int                                                                                                                                                                                                                                                                    dispNumber = 10;
 
 
 int main()
@@ -71,9 +71,25 @@ int main()
     }
     cout << endl << endl;
 
-    cout << "The last " << dispNumber << " iterations of Normalized-LMS:" << endl;
+    cout << "The last " << dispNumber << " iterations of LMS-Newton-Fix:" << endl;
     cout << "observed" << "\t" << "desired" << "\t\t" << "output" << "\t\t"
          << "adaptive filter" << endl << endl;
+    wn = 0;
+    for( int k=0; k<start; ++k )
+        yn[k] = lmsNewtonFix( xn[k], dn[k], wn, 20*mu, alpha, xnPow );
+    for( int k=start; k<N; ++k )
+    {
+        yn[k] = lmsNewtonFix( xn[k], dn[k], wn, 20*mu, alpha, xnPow );
+        cout << setiosflags(ios::fixed) << setprecision(4)
+             << xn[k] << "\t\t" << dn[k] << "\t\t" << yn[k] << "\t\t";
+        for( int i=0; i<=order; ++i )
+            cout << wn[i] << "\t";
+        cout << endl;
+    }
+    cout << endl << endl;
+
+    cout << "The last " << dispNumber << " iterations of Normalized-LMS:" << endl;
+    cout << "observed" << "\t" << "desired" << "\t\t" << "output" << "\t\t" << "adaptive filter" << endl << endl;
     wn = 0;
     for( int k=0; k<start; ++k )
         yn[k] = lmsNormalize( xn[k], dn[k], wn, rho, gamma );
