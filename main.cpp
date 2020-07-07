@@ -1,10 +1,8 @@
-/*****************************************************************************
- *                                  lms_test.cpp
- *
- * LMS adaptive filter testing.
- *
- * Zhang Ming, 2010-10, Xi'an Jiaotong University.
- *****************************************************************************/
+/*******************************************************************
+ *          基于西安交通大学 M.Zhang 的LMS自适应滤波器程序
+ *          北京交通大学 王子龙 wangzilong@bjtu.edu.cn
+ *          用于小学期综合训练大作业
+ *******************************************************************/
 
 
 #define BOUNDS_CHECK
@@ -21,7 +19,7 @@ using namespace splab;
 typedef double  Type;
 const   int     N = 50;
 const   int     order = 1;
-const   int                                                                                                                                                                                                                                                                    dispNumber = 10;
+const   int     dispNumber = 10;
 
 
 int main()
